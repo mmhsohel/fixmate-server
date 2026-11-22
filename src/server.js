@@ -5,8 +5,11 @@ import { closeDb, connectDb } from './config/db.js';
 async function main() {
   await connectDb();
   const app = createApp();
-  const server = app.listen(env.port, () => console.log(`✔ FixMate API listening on :${env.port} (${env.nodeEnv})`));
-
+  const server = app.listen(env.port, "0.0.0.0", () => {
+    console.log(
+      `✔ FixMate API listening on :${env.port} (${env.nodeEnv})`
+    );
+  });
   if (env.seedOnStart) {
     import('./seed.js').then((m) => m.runSeed()).catch((e) => console.error('[seed] failed:', e.message));
   }
