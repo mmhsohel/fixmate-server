@@ -14,7 +14,6 @@ export async function connectDb() {
 }
 
 export const col = (name) => db.collection(name);
-/** BetterAuth stores accounts in the `user` collection – this is our `users` collection. */
 export const usersCol = () => db.collection('user');
 
 export function toObjectId(id) {
