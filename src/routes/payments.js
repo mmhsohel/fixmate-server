@@ -14,7 +14,6 @@ const stripe = () => {
   return (stripeClient ??= new Stripe(env.stripeKey));
 };
 
-/** Idempotent: safe to call from both the success page and the webhook (and from Stripe retries). */
 async function recordPayment(session) {
   if (session.payment_status !== 'paid') return null;
   const _id = toObjectId(session.metadata?.bookingId);
@@ -44,7 +43,7 @@ async function recordPayment(session) {
   return (await col('payments').findOne({ stripeSessionId: session.id })) || (await col('payments').findOne({ bookingId: String(_id) }));
 }
 
-/** Mounted in app.js BEFORE express.json() because Stripe needs the raw body. */
+
 export const webhookHandler = asyncHandler(async (req, res) => {
   if (!env.stripeWebhookSecret) throw new HttpError(503, 'STRIPE_WEBHOOK_SECRET is not configured');
   let event;

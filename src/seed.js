@@ -1,8 +1,3 @@
-/**
- * Idempotent demo-data seeder.
- * Accounts are created through BetterAuth's own sign-up endpoint (so passwords are hashed correctly),
- * then roles/profile fields are applied directly in MongoDB. Waits for the Next.js app to be ready.
- */
 import { pathToFileURL } from 'node:url';
 import { env } from './config/env.js';
 import { col, connectDb, usersCol } from './config/db.js';

@@ -50,7 +50,7 @@ router.get('/latest', asyncHandler(async (_req, res) => {
   res.json({ items });
 }));
 
-// ---------- Technician ----------
+
 router.get('/mine', authenticate, requireRole('technician'), asyncHandler(async (req, res) => {
   const items = await col('services').find({ technicianEmail: req.user.email }).sort({ createdAt: -1 }).toArray();
   res.json({ items });
